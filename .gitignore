@@ -14,3 +14,9 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+bundler_stubs/
+doc/
+*.swp
+*-
+.project
+.DS_Store
