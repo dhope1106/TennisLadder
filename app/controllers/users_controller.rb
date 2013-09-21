@@ -1,3 +1,5 @@
+require 'pony'
+
 class UsersController < ApplicationController
 
 	before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
@@ -41,6 +43,9 @@ class UsersController < ApplicationController
   		flash[:success] = "Profile Updated"
   		sign_in @user
   		redirect_to @user
+  		Pony.mail({:to=>@user.email,
+  			:subject=>'Your DavidsTennisLadder profile was Updated',
+  			:body=>'Your DavidsTennisLadder profile was Updated.'})
   	else
   		render 'edit'
   	end

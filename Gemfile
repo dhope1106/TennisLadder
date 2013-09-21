@@ -6,6 +6,8 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
+gem 'mail'
+gem 'pony', '1.5.1'
 
 
 group :development, :test do
