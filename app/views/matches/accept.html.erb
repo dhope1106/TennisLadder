@@ -1,0 +1,9 @@
+<% provide(:title, 'New Match') %>
+<h1>New Match</h1>
+
+<p>You are proposing a match between <%= @player1.name %> and <%= @player2.name %></p>
+
+<p>Press Challenge to send challenge email to your opponent</p>
+
+<%= button_to "challenge", controller: "matches", action: "challenge", 
+	      			player1: @player1, player2: @player2 %>
