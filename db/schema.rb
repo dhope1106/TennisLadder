@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130817201102) do
+ActiveRecord::Schema.define(:version => 20130922215901) do
+
+  create_table "matches", :force => true do |t|
+    t.integer  "player1id"
+    t.integer  "player2id"
+    t.string   "date"
+    t.string   "score"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "accepted"
+  end
+
+  add_index "matches", ["player1id", "created_at"], :name => "index_matches_on_player1id_and_created_at"
+  add_index "matches", ["player2id", "created_at"], :name => "index_matches_on_player2id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "name"

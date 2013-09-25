@@ -1,10 +1,18 @@
 TennisLadder::Application.routes.draw do
+  get "ladder/show"
+  get "ladder/challenge"
+
+  get "matches/new"
+  get "matches/challenge"
+  get "matches/accept"
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :matches
   
   
   
-  root to: 'static_pages#home'
+  root to: 'sessions#new'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
@@ -12,6 +20,11 @@ TennisLadder::Application.routes.draw do
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/ladder',  to: 'ladder#show'
+  match '/matches/challenge', to: 'matches#challenge'
+  match '/matches/reject', to: 'matches#reject'
+  match '/matches/accept', to: 'matches#accept'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

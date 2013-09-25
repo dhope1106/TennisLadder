@@ -1,11 +1,80 @@
 <% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="span4">
     <section>
+      <center>
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
+      <br><br><br>
+      <h2>Pending Challenges</h2>
+      <table border="3" cellspacing="2" cellpadding="4" width="500">    
+      <colgroup>
+      	 	<col span="1" style="width: 25%;">
+       		<col span="1" style="width: 25%;">
+       		<col span="1" style="width: 25%;">
+       		<col span="1" style="width: 25%;">
+      </colgroup>
+      <tr>
+		  <th>Challenger</th>
+		  <th>Challengee</th>
+		  <% if current_user?(@user) %>
+		  <th colspan="2">Options</th>
+		  <% end %>
+      </tr>
+      <% @challenges.each do |m| %>
+      	<tr>
+      	    <% m.getmatch(m) %>
+			<td>  
+				<%= link_to m.player1.name, controller: "users", action: "show", id: m.player1 %></td>
+			<td><%= link_to m.player2.name, controller: "users", action: "show", id: m.player2 %></td>
+			<% if current_user?(@user) %>
+				<% if @user!=m.player1 %>
+					<td class="ui-helper-center">
+						<%= link_to "Accept", controller: "matches", action: "accept", id: m %>
+					</td>
+					<td class="ui-helper-center"> 
+					<%= link_to "Reject", m, method: :delete,  data: { confirm: "You sure?" } %>
+					</td> 
+				<% else %>
+					<td class="ui-helper-center" colspan="2"> 
+					<%= link_to "Reject", m, method: :delete,  data: { confirm: "You sure?" } %>
+					</td> 
+				<% end %>
+			<%end%>
+      	</tr>
+      <% end %>
+      </table>
+     <br><br><br>
+       <h2>Accepted Challenges</h2>
+      <table border="3" cellspacing="2" cellpadding="4">
+      <tr>
+		  <th width="120 pixels">Challenger</th>
+		  <th width="120 pixels">Challengee</th>
+      </tr>
+      <% @accepted.each do |m| %>
+      	<tr>
+      	    <% m.getmatch(m) %>
+			<td><%= m.player1.name %></td>
+			<td><%= m.player2.name %></td>
+      	</tr>
+      <% end %>
+      </table>
+     <br><br><br>
+      <h2>Completed Matches</h2>
+       <table border="3" cellspacing="2" cellpadding="4">
+      <tr>
+		  <th width="120 pixels">Challenger</th>
+		  <th width="120 pixels">Challengee</th>
+		  <th width="120 pixels">Score</th>
+      </tr>
+     <% @matches.each do |m| %>
+      	<tr>
+      	    <% m.getmatch(m) %>
+			<td><%= m.player1.name %></td>
+			<td><%= m.player2.name %></td>
+			<td><%= m.score %></td> 
+      	</tr>
+      <% end %>
+	</table>
+	</center>
     </section>
-  </aside>
-</div>

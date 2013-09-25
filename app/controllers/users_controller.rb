@@ -12,6 +12,24 @@ class UsersController < ApplicationController
   
   def show
   	@user = User.find(params[:id])
+  	
+  	@challenges = Array.new
+  	@accepted = Array.new
+  	@matches = Array.new
+  	
+  	Match.all.each do |match|
+  		if (@user.id==match.player1id || @user.id==match.player2id)
+			if	(match.score.nil? or match.score.length==0)
+				if(match.accepted==true)
+					@accepted << match
+				else
+					@challenges << match
+				end
+			else
+				@matches << match
+			end
+  		end
+  	end
   end
   
   def destroy
@@ -30,7 +48,11 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-  		
+  	
+  def challenge
+  	redirect_to root_url
+  end
+  				
   def edit
   end
   
